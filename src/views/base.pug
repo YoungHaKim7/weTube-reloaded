@@ -2,7 +2,7 @@ doctype html
 html(lang = "ko")
     head 
         link(rel="stylesheet" href="https://unpkg.com/mvp.css")
-        title #{pageTitle} | WeTube
+        title #{pageTitle} | #{siteName}
     body 
         header 
             h1=pageTitle
@@ -14,6 +14,16 @@ html(lang = "ko")
                         a(href="/") Home
                     li 
                         a(href="/search") Search
+                    if loggedIn 
+                        li 
+                            a(href="/logout") Log out
+                        li 
+                            a(href="/my-profile") #{loggedInUser.name}의 프로필
+                    else
+                        li 
+                            a(href="/join") Join 
+                        li 
+                            a(href="/login") Login
         main
             block content
         

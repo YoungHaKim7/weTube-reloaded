@@ -40,7 +40,7 @@ export const postEdit = async (req, res) => {
     const video = await Video.exists({ _id:id}); 
     // exists(filter): video Object를 받는 대신 True or Flase를 return 받음 
     if (!video) {
-        return res.render("404", {pageTitle: "Video is not found"});
+        return res.status(404).render("404", {pageTitle: "Video is not found"});
     }
     await Video.findByIdAndUpdate(id, {
         title, description, hashtags: Video.formatHashtags(hashtags)
@@ -51,7 +51,7 @@ export const watch = async (req, res) => {
     const { id } = req.params; // id 는 req.params에서 오는 것 기억하기
     const video = await Video.findById(id);
     if(!video) {
-        return res.render("404", {pageTitle: "Video is not found"});
+        return res.status(404).render("404", {pageTitle: "Video is not found"});
     }
     return res.render("watch", {pageTitle: video.title, video});
 }
