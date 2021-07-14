@@ -1,3 +1,4 @@
+import "dotenv/config"
 import "./db"
 import "./model/Video"
 import "./model/User"

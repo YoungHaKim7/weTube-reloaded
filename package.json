@@ -17,10 +17,13 @@
   "homepage": "https://github.com/lee-yun-pyo/weTube-reloaded#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "connect-mongo": "^4.4.1",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "mongoose": "^5.12.10",
     "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1",
     "pug": "^3.0.2"
   },
   "devDependencies": {
