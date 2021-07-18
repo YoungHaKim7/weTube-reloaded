@@ -18,7 +18,7 @@ export const home = async(req, res) => {
     try {
         const videos =  await Video.find({}).sort({ createdAt : "desc"})
         // console.log(videos);
-        return res.render("home", {pageTitle : "Home", title : "Hello", videos});
+        return res.render("home", {pageTitle : "Home", videos});
     }
     catch {
         return res.render("search-error")
@@ -60,10 +60,12 @@ export const getUpload = (req, res) => {
 }
 
 export const postUpload = async (req, res) => {
+    const { path: fileUrl } = req.file;
     const { title, description, hashtags } = req.body;
     try{
         await Video.create({
             title, 
+            fileUrl,
             description,
             hashtags: Video.formatHashtags(hashtags)
         });

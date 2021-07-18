@@ -17,7 +17,6 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + '/src/views');
 app.use(logger);
 app.use(express.urlencoded({extend: true})); // HTML code 이해 (ex.req.body)
-
 app.use(session({
     // session id는 쿠키에 저장, session data는 서버에 저장 
     secret: process.env.COOKIE_SECRET,
@@ -35,6 +34,7 @@ app.use(session({
 // 브라우저는 BackEnd에 Request할 때마다 쿠키를 덧붙임  
 
 app.use(localMiddleware);
+app.use("/uploads", express.static("uploads")); // 폴더를 브라우저에 노출
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);

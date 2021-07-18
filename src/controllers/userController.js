@@ -91,10 +91,10 @@ export const finishGithubLogin = async (req, res) => {
         if(!emailObj) {
             return res.redirect("/login");
         }
-        const user = await User.findOne({ email: emailObj.email});
+        let user = await User.findOne({ email: emailObj.email});
         if(!user) {
             user = await User.create({
-                avatar_url: userdData.avatar_url,
+                avatar_url: userData.avatar_url,
                 email: emailObj.email,
                 username: userData.login,
                 password: "",
@@ -123,9 +123,10 @@ export const postEdit = async (req, res) => {
     const pageTitle = "Edit Profile";
     const { 
         session: {
-            user: { _id, avatar_url, email: sessionEmail, username: sessionUsername },
+            user: { _id, avatarUrl, email: sessionEmail, username: sessionUsername },
         },
-        body: { name, email, username, location }
+        body: { name, email, username, location },
+        file
     } = req;
     
     let searchParam = [];
@@ -138,6 +139,7 @@ export const postEdit = async (req, res) => {
     if (searchParam.length > 0) {
         const foundUser = await User.findOne({ $or: searchParam});
         if (foundUser && foundUser._id.toString() !== _id) {
+            // id 비교 : email과 username이 내 것인지 타인의 것인지 확인
             return res.status(400).render("edit-profile", {
                 pageTitle,
                 errorMessage: "This username/email is already taken"
@@ -145,6 +147,7 @@ export const postEdit = async (req, res) => {
         }
     }
     const updatedUser = await User.findByIdAndUpdate(_id, {
+        avatarUrl: file ? file.path : avatarUrl,
         name,
         email, 
         username,
@@ -154,4 +157,47 @@ export const postEdit = async (req, res) => {
     });
     req.session.user = updatedUser;
     return res.redirect("/users/edit");
+}
+
+export const getChangePassword = (req, res) => {
+    if (req.session.user.socialOnly === true) {
+        return res.redirect("/");
+    }
+    return res.render("users/change-password", {pageTitle: "Change Password"});
+}
+
+export const postChangePassword = async (req, res) => {
+    const { 
+        session: {
+            user: { _id },
+        },
+        body: { OldPassword, NewPassword, NewPasswordConfirm }
+    } = req;
+    const user = await User.findById(_id);
+    const ok = await bcrypt.compare(OldPassword, user.password);
+    if (!ok) {
+        return res.status(400).render("users/change-password", {
+            pageTitle: "Change Password",
+            errorMessage: "현 비밀번호가 다릅니다"
+        });
+    }
+    if (NewPassword !== NewPasswordConfirm) {
+        return res.status(400).render("users/change-password", {
+            pageTitle: "Change Password",
+            errorMessage: "새 비밀번호가 다릅니다"
+        })
+    }
+    user.password = NewPassword;
+    await user.save();
+    req.session.user.password = user.password;
+    return res.redirect("/users/logout");
+}
+
+export const see = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+        return res.status(404).render("404", {pageTitle: "User not found "})
+    }
+    return res.render("users/profile", {pageTitle: user.name, user})
 }
