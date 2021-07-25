@@ -1,0 +1,42 @@
+.joinBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.joinPart {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $white;
+  border-radius: 20px;
+  padding: 20px;
+  hr {
+    width: 70%;
+    margin-bottom: 20px;
+  }
+}
+.joinForm {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.joinForm input {
+  width: 250px;
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid $white;
+}
+
+.joinForm input:last-child {
+  cursor: pointer;
+  width: 150px;
+  background-color: $red;
+  font-size: 20px;
+  color: white;
+  border: none;
+}

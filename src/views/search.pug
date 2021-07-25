@@ -3,9 +3,9 @@ include mixins/video
 
 
 block content 
-    form(method="GET")
+    form(method="GET").formSearch
         input(type="text" placeholder="Search By Title" name="keyword")
-        input(type="submit" value="Search!")
+        input(type="submit" value="Search")
 
     each video in videos 
         +video(video)

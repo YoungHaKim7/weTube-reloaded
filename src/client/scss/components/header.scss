@@ -1,0 +1,22 @@
+a {
+  i.fa-youtube {
+    color: $red;
+  }
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 15px;
+}
+.header-nav ul {
+  display: flex;
+  align-items: center;
+}
+
+.header-nav li {
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: $white;
+}

@@ -1,18 +1,20 @@
 extends base
 
 block content
-    if errorMessage 
-        sapn=errorMessage
-    form(method="POST")
-        input(placeholder="Name" name="name"  required type="text")
-        input(placeholder="Email" name="email"  required type="email")
-        input(placeholder="Username" name="username"  required type="text")
-        input(placeholder="Password" name="password" required type="password")
-        input(placeholder="Confirm password" name="password2" required type="password")
-        input(placeholder="Location" name="location" required type="text")
-        input(type="submit" value="Join")
-    
-    hr
-    div 
-        span Already hane an account? 
-        a(href="/login") Log in now &rarr; 
+    div.joinBody
+        if errorMessage 
+            sapn=errorMessage
+        div.joinPart
+            form(method="POST").joinForm
+                input(placeholder="Name" name="name"  required type="text")
+                input(placeholder="Email" name="email"  required type="email")
+                input(placeholder="Username" name="username"  required type="text")
+                input(placeholder="Password" name="password" required type="password")
+                input(placeholder="Confirm password" name="password2" required type="password")
+                input(placeholder="Location" name="location" required type="text")
+                input(type="submit" value="Join")
+            
+            hr
+            div 
+                span Already hane an account? 
+                a(href="/login") Log in now &rarr; 
