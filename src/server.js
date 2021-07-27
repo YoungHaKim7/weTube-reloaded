@@ -5,6 +5,7 @@ import MongoStore from 'connect-mongo'
 import rootRouter from "./Routers/rootRouter"
 import userRouter from "./Routers/userRouter"
 import videoRouter from "./Routers/videoRouter"
+import apiRouter from "./Routers/apiRouter";
 import { localMiddleware } from "./middlewares";
 import { Mongoose } from "mongoose";
 
@@ -39,6 +40,7 @@ app.use("/assets", express.static("assets")); // Express가 폴더를 브라우�
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
+app.use("/api", apiRouter)
 
 export default app;
 

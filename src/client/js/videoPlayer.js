@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 const video = document.querySelector("video")
 const playBtn = document.getElementById("play");
 const playBtnIcon = playBtn.querySelector("i");
@@ -112,7 +114,11 @@ const logKey = (e) => {
         videoPlayBtn();
     }
 }
-
+const handleVideoEnded = () => {
+    const { id } = videoContainer.dataset;
+    fetch(`/api/videos/${id}/view`, { method: "POST"}); 
+    // api 요청하는 법 : fetch
+}
 
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
@@ -125,4 +131,4 @@ video.addEventListener("mousemove", handleMouseMove);
 video.addEventListener("mouseleave", handleMouseLeave);
 video.addEventListener("click", handleVideoClick);
 document.addEventListener('keydown', logKey);
-
+video.addEventListener("ended", handleVideoEnded);
