@@ -19,10 +19,18 @@
   justify-content: center;
   border: 1px solid white;
   border-radius: 10px;
-  padding: 20px 30px;
+  padding: 20px;
   hr {
     width: 90%;
     margin: 20px 0;
+  }
+  a {
+    i {
+      margin-right: 10px;
+    }
+    span {
+      font-size: 16px;
+    }
   }
   div {
     a {
@@ -31,11 +39,28 @@
   }
 }
 .login-form {
+  width: 350px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   input {
-    font-size: 20px;
-    margin-bottom: 10px;
-    padding: 6px 10px;
+    background-color: $inputColor;
+    width: 250px;
+    margin-bottom: 14px;
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+    border: none;
+  }
+  input:last-child {
+    width: 150px;
+    background-color: $blackgray;
+    font-size: 18px;
+    color: white;
+    border: none;
+  }
+  input:last-child:hover {
+    background-color: $hoverGray;
   }
 }

@@ -5,11 +5,15 @@
 // Componets
 @import "./components/header.scss";
 @import "./components/footer.scss";
+@import "./components/video.scss";
 
 // Screens
 @import "./screens/join.scss";
 @import "./screens/search.scss";
 @import "./screens/login.scss";
+@import "./screens/upload.scss";
+@import "./screens/edit-profile.scss";
+@import "./screens/edit.scss";
 
 // Default
 a {

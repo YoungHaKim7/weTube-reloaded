@@ -1,9 +1,9 @@
-.joinBody {
+.upload-body {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
-.joinPart {
+.upload-part {
   width: max-content;
   display: flex;
   flex-direction: column;
@@ -12,12 +12,8 @@
   border: 1px solid gray;
   border-radius: 20px;
   padding: 20px;
-  hr {
-    width: 70%;
-    margin-bottom: 20px;
-  }
 }
-.joinForm {
+.upload-form {
   width: 350px;
   display: flex;
   flex-direction: column;
@@ -27,7 +23,7 @@
     background-color: $inputColor;
     width: 250px;
     margin-bottom: 14px;
-    padding: 8px;
+    padding: 10px;
     border-radius: 4px;
     color: white;
     border: none;
