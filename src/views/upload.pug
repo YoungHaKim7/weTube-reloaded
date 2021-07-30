@@ -2,6 +2,9 @@ extends base
 
 block content
     div.upload-body
+        div 
+            video#preview 
+            button#startBtn Recording!
         if errorMessage
             span=errorMessage
         div.upload-part
@@ -12,3 +15,5 @@ block content
                 input(name="description" placeholder="description", required, type = "text", maxlength = 140)
                 input(name="hashtags" placeholder="hashtags, Separate by comma", required, type = "text")
                 input(type="submit", value="upload video")
+block scripts 
+    script(src="/assets/js/recorder.js")  
