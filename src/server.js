@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
-import session from "express-session"
+import session from "express-session";
+import flash from "express-flash";
 import MongoStore from 'connect-mongo'
 import rootRouter from "./Routers/rootRouter"
 import userRouter from "./Routers/userRouter"
@@ -34,6 +35,7 @@ app.use(session({
 // 쿠키 : BackEnd가 브라우저에게 주는 정보
 // 브라우저는 BackEnd에 Request할 때마다 쿠키를 덧붙임  
 
+app.use(flash());
 app.use(localMiddleware);
 app.use("/uploads", express.static("uploads")); // 폴더를 브라우저에 노출
 app.use("/assets", express.static("assets")); // Express가 폴더를 브라우저에 노출

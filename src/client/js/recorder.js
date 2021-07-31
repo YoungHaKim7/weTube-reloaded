@@ -18,7 +18,6 @@ const handleStop = () => {
     startBtn.innerText = "Download video!";
     startBtn.removeEventListener("click", handleStop);
     startBtn.addEventListener("click", handleDownload);
-
     recorder.stop();
 }
 
@@ -44,7 +43,6 @@ const init = async () => {
     });
     video.srcObject = stream;
     video.play();
-    
 }
 
 init();
