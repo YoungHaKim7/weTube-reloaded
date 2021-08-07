@@ -1,5 +1,6 @@
 import Video from "../model/Video";
 import User from "../model/User";
+import Comment from "../model/Comment";
 
 export const home = async(req, res) => {
     try {
@@ -40,11 +41,11 @@ export const postEdit = async (req, res) => {
     await Video.findByIdAndUpdate(id, {
         title, description, hashtags: Video.formatHashtags(hashtags)
     });
-    return res.redirect(`/videos/${id}`);
+    return res.redirect(`/videos/${id}`); 
 }
 export const watch = async (req, res) => {
-    const { id } = req.params; // id 는 req.params에서 오는 것 기억하기
-    const video = await Video.findById(id).populate('owner');
+    const { id } = req.params;
+    const video = await Video.findById(id).populate('owner').populate('comment');
     if(!video) {
         return res.status(404).render("404", {pageTitle: "Video is not found"});
     }
@@ -104,6 +105,8 @@ export const search = async (req, res) => {
         videos = await Video.find({
             title: {
                 $regex: new RegExp(keyword, "i")
+                // mongoDB의 엔진
+                // i: 대소문자 무시
             }
         })
     }
@@ -121,4 +124,24 @@ export const registerView = async (req, res) => {
     return res.sendStatus(200);
     // res.status만 하면 (pending) 상태
     // sendStatus: status를 보내고 연결 종료
+}
+
+export const createComment = async (req, res) => {
+    const {
+        session: { user },
+        body: { text },
+        params: { id },
+    } = req;
+    const video = await Video.findById(id);
+    if(!video) {
+        return res.sendStatus(404);
+    }
+    const comment = await Comment.create({
+        text,
+        owner: user._id,
+        video: id,
+    });
+    video.comment.push(comment._id);
+    video.save();
+    return res.status(201).json({ newCommentId: comment._id});
 }

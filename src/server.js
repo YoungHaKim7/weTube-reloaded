@@ -18,7 +18,8 @@ const logger = morgan("dev");
 app.set("view engine", "pug");
 app.set("views", process.cwd() + '/src/views');
 app.use(logger);
-app.use(express.urlencoded({extend: true})); // HTML code 이해 (ex.req.body)
+app.use(express.urlencoded({extend: true}));
+app.use(express.json());
 app.use(session({
     // session id는 쿠키에 저장, session data는 서버에 저장 
     secret: process.env.COOKIE_SECRET,
