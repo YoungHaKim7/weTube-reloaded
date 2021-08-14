@@ -1,7 +1,15 @@
 header 
-    a(href="/")
+    a(href="/").header__title
         i.fab.fa-youtube.fa-3x  
+        h1 YouTube
+
+    form(method="GET").formSearch
+        input(type="text" placeholder="Search By Title" name="keyword")
+        input(type="submit" value="")
+        i.fas.fa-search.fa-lg
+
     nav.header-nav 
+        
         ul 
             li 
                 a(href="/search") Search
@@ -10,12 +18,12 @@ header
                     a(href="/videos/upload") Upload Video
                 li 
                     a(href=`/users/${loggedInUser._id}`) My profile
-                li 
-                    a(href="/users/edit") Edit profile 
                 li
-                    a(href="/users/logout") Log out
+                    a(href="/users/logout") 
+                        i.fas.fa-sign-out-alt.fa-lg
             else
                 li 
                     a(href="/join") Join 
                 li 
-                    a(href="/login") Login
+                    a(href="/login") 
+                        i.fas.fa-sign-in-alt.fa-lg

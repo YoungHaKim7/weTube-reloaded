@@ -13,9 +13,18 @@ block content
                 input(placeholder="Password" name="password" required type="password")
                 input(type="submit" value="Login")
             br
-            a(href="users/github/start") 
-                i.fab.fa-github.fa-lg
-                span Continue with Github
+            div.login__social 
+                h1 Continue with 
+                div.login__social-bar
+                div
+                    div.login__social-github
+                        a(href="users/github/start") 
+                            i.fab.fa-github.fa-lg
+                            span Github
+                    div.login__social-kakao
+                        a(href="users/github/start") 
+                            i.fas.fa-comment.fa-lg
+                            span KakaoTalk
             hr
             div  
                 span 계정이 없나요? 

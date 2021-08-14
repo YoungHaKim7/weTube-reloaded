@@ -1,7 +1,15 @@
-a {
+.header__title {
   i.fa-youtube {
     color: $red;
   }
+  h1 {
+    font-size: 35px;
+    font-weight: 600;
+    margin-left: 10px;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 header {
   display: flex;
@@ -18,5 +26,4 @@ header {
   margin-left: 20px;
   font-size: 20px;
   font-weight: 600;
-  color: $white;
 }

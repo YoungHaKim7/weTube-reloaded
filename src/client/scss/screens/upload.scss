@@ -1,17 +1,19 @@
 .upload-body {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 .upload-part {
+  background-color: $white;
   width: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid gray;
   border-radius: 20px;
   padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .upload-form {
   width: 350px;
@@ -37,5 +39,43 @@
   }
   input:last-child:hover {
     background-color: $hoverGray;
+  }
+}
+.video__preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  #preview {
+    width: 450px;
+    height: 450px;
+  }
+  #startBtn {
+    background-color: $white;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    span {
+      margin-right: 5px;
+      font-size: 17px;
+    }
+    .fa-record-vinyl {
+      color: red;
+    }
+    .fa-stop {
+      color: blue;
+    }
+    .fa-download {
+      color: black;
+    }
+  }
+  #startBtn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
   }
 }

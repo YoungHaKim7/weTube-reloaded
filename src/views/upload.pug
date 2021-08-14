@@ -2,9 +2,11 @@ extends base
 
 block content
     div.upload-body
-        div 
+        div.video__preview
             video#preview 
-            button#startBtn Recording!
+            button#startBtn
+                span Recording
+                i.fas.fa-record-vinyl.fa-lg
         if errorMessage
             span=errorMessage
         div.upload-part
