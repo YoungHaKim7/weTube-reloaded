@@ -5,7 +5,7 @@ const form  = document.getElementById("commentForm");
 const textarea = form.querySelector("textarea");
 const deleteBtn = document.querySelectorAll(".deleteBtn");
 
-const addComment = (text, id, commentArr) => {
+const addComment = (text, id) => {
     const commentContainer = document.querySelector(".video__comments ul");
     const commentList = document.createElement("li");
     commentList.dataset.id = id;
@@ -25,8 +25,9 @@ const addComment = (text, id, commentArr) => {
 }
 
 const deleteComment = (event) => {
-    const commentList = event.target.parentElement;
-    commentList.remove();
+    const commentContainer = document.querySelector(".video__comments ul");
+    const commentList = event.target.parentNode;
+    commentContainer.removeChild(commentList);    
 }
 
 const handleSubmit = async (event) => {
@@ -44,14 +45,15 @@ const handleSubmit = async (event) => {
         body: JSON.stringify({ text }),
     });
     if(response.status === 201) {
-        const {newCommentId, userComments} = await response.json();
+        const {newCommentId} = await response.json();
         textarea.value="";
-        addComment(text, newCommentId,userComments);  
-    }
+        addComment(text, newCommentId);  
+    } 
+    
 }
 
 const handleDelete = async (event) => {
-    const commentList = document.querySelector(".video__comment");
+    const commentList = event.target.parentNode;
     const commentId = commentList.dataset.id;
     const videoId = videoContainer.dataset.id;
     const response = await fetch(`/api/comments/${commentId}/delete`, {
@@ -65,6 +67,9 @@ const handleDelete = async (event) => {
     });
     if(response.status === 201) {
         deleteComment(event);
+    }
+    if(response.status === 403) {
+        alert("댓글 주인이 아닙니다.");
     }
 }
 

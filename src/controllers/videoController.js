@@ -48,7 +48,8 @@ export const watch = async (req, res) => {
     const video = await Video.findById(id).populate('owner').populate('comment');
     if(!video) {
         return res.status(404).render("404", {pageTitle: "Video is not found"});
-    }
+    };
+    
     return res.render("watch", {pageTitle: video.title, video});
 }
 export const getUpload = (req, res) => {
@@ -146,9 +147,9 @@ export const createComment = async (req, res) => {
     commentUser.comment.push(comment._id);
     commentUser.save();
     video.save();
+    req.session.user = commentUser; //
     return res.status(201).json({ 
         newCommentId: comment._id,
-        userComments: commentUser.comment,
     });
 }
 
@@ -157,13 +158,18 @@ export const deleteComment = async (req, res) => {
             body: { videoId },
             session:{ user }
     } = req;
-    await Comment.findByIdAndDelete(id);
     const video = await Video.findById(videoId);
     const commentUser = await User.findById(user._id);
+    if(user.comment.indexOf(id) < 0) {
+        req.flash("info", "Not authorized");
+        return res.sendStatus(403);
+    }
     commentUser.comment.splice(commentUser.comment.indexOf(id), 1);
     video.comment.splice(video.comment.indexOf(id), 1);
-    video.save();
-    commentUser.save();
-    return res.sendStatus(201);
+    await video.save();
+    await commentUser.save();   
+    await Comment.findByIdAndDelete(id);
     
+    return res.sendStatus(201);
+
 }
