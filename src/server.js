@@ -49,28 +49,3 @@ export default app;
 
 // server.js 의 기능 
 // express 된 것과 server의 configuration에 관련된 코드만 처리함 
-
-/*
-{ 
-  "_id" : "bBVqWMLvJ53VesCj-EyjR41Iv__7LjuP", 
-  "expires" : ISODate("2021-07-25T08:47:53.153Z"), 
-  "session" : "{
-    \"cookie\":{
-      \"originalMaxAge\":null,
-      \"expires\":null,
-      \"httpOnly\":true,
-      \"path\":\"/\"
-    },
-    \"loggedIn\":true,
-    \"user\":{
-      \"_id\":\"60eaa2ef068b533ef082e2bd\",
-      \"email\":\"yusd1d@naver.com\",
-      \"username\":\"ccc\",
-      \"password\":\"$2b$05$Y3QWnXXdYSb3FEtqrd/RvebPzGb68E7d4zkvlj4eQyQMHRlZ1dKCe\",
-      \"name\":\"비번은 123 아이디 ccc\",
-      \"location\":\"df\",
-      \"__v\":0}
-    }" 
-  }
-
-*/

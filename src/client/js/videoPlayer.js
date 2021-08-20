@@ -108,10 +108,18 @@ const handleVideoClick = () => {
     videoPlayBtn();
 
 }
-const logKey = (e) => {
-    if (e.code === "Space") {
+const logKey = (event) => {
+    if (event.code === "Space") {
         videoPlay();
         videoPlayBtn();
+    }
+    if (event.code === "KeyF") {
+    video.requestFullscreen();
+    }
+    if (event.code === "Escape") {
+        if (document.fullscreenElement) {
+        video.exitFullscreen();
+        }
     }
 }
 const handleVideoEnded = () => {

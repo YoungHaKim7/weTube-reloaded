@@ -2,6 +2,7 @@ import User from "../model/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
 import Video from "../model/Video";
+import { query } from "express";
 
 export const getJoin = (req, res) => res.render("join", {pageTitle: "Join"});
 export const postJoin = async (req, res) => {
@@ -43,7 +44,7 @@ export const postLogin = async (req, res) => {
 }
 
 export const startGithubLogin = (req, res) => {
-    const baseUrl = "https://github.com/login/oauth/authorize"
+    const baseUrl = "https://github.com/login/oauth/authorize";
     const config = {
         client_id:"6a980e6f0c759a0a433a",
         allow_signup:false,
@@ -51,10 +52,13 @@ export const startGithubLogin = (req, res) => {
     }
     const params = new URLSearchParams(config).toString();
     const finalUrl = `${baseUrl}?${params}`
+    console.log("github start");
+
     return res.redirect(finalUrl);
 }
 
 export const finishGithubLogin = async (req, res) => {
+    console.log("github finish");
     const baseUrl = "https://github.com/login/oauth/access_token";
     const config = {
         client_id: process.env.GH_CLIENTID,
@@ -69,7 +73,7 @@ export const finishGithubLogin = async (req, res) => {
         headers: {
             Accept: "application/json"
         }
-    })).json(); // .then 사용하는 대신 await ~ ).json() 사용
+    })).json();
     if("access_token" in tokenRequest) {
         const { access_token } = tokenRequest;
         const apiUrl = "https://api.github.com"
@@ -94,7 +98,7 @@ export const finishGithubLogin = async (req, res) => {
         let user = await User.findOne({ email: emailObj.email});
         if(!user) {
             user = await User.create({
-                avatar_url: userData.avatar_url,
+                avatarUrl: userData.avatar_url,
                 email: emailObj.email,
                 username: userData.login,
                 password: "",
@@ -200,4 +204,77 @@ export const see = async (req, res) => {
         return res.status(404).render("404", {pageTitle: "User not found "})
     }  
     return res.render("users/profile", {pageTitle: user.name, user})
+};
+
+export const startKakaoLogin = async (req, res) => {
+    const base_url =  "https://kauth.kakao.com/oauth/authorize";
+    const config = {
+        client_id:process.env.KA_CLIENTID,
+        redirect_uri: "http://localhost:4000/users/kakao/finish",
+        response_type: "code",
+    }
+    const params = new URLSearchParams(config).toString();
+    const final_Url = `${base_url}?${params}`;
+    console.log("kakao start")
+    return res.redirect(final_Url);
 }
+
+export const finishKakaoLogin = async (req, res) => {
+    console.log("kakao finish")
+    const base_url = "https://kauth.kakao.com/oauth/token";
+    const config = {
+        grant_type: "authorization_code",
+        client_id: process.env.KA_CLIENTID,
+        redirect_uri: "http://localhost:4000/users/kakao/finish",
+        code: req.query.code,	
+    };
+    const params = new URLSearchParams(config).toString();
+    const final_Url = `${base_url}?${params}`;
+    const tokenRequest = await (
+        await fetch(final_Url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        })).json();
+    console.log(tokenRequest);
+    if("access_token" in tokenRequest) {
+        const { access_token } = tokenRequest;
+        const api_url = "https://kapi.kakao.com/v2/user/me";
+        const kakao_userData = await (
+            await fetch(api_url, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${access_token}`,
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            })).json();
+            console.log(kakao_userData);
+        const user_account = kakao_userData.kakao_account;
+        let email = null;
+        if(user_account.is_email_valid === true && user_account.is_email_verified === true) {
+            email = user_account.email;
+        }        
+        if(!email) {
+            return res.redirect("/login");
+        }
+        let user = await User.findOne({ email });
+        if(!user) {
+            user = await User.create({
+                name: user_account.profile.nickname,
+                email,
+                avatarUrl: user_account.profile.profile_image_url,
+                socialOnly: true,
+                username: email.split("@")[0],
+                password: "",
+                location: "",
+            })
+        }
+        req.session.loggedIn = true;
+        req.session.user = user;
+        return res.redirect("/");
+    } else {
+        return res.redirect("/login");
+    }
+       
+};
