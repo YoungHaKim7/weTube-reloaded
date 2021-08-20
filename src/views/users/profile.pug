@@ -1,17 +1,29 @@
 extends ../base 
 include ../mixins/video
 
-block content 
-    div.profile__user 
-        div.profile__user-img
-            img(src=loggedInUser.avatarUrl)
-            span=user.name 
-        div.profile__user-text 
-            span=user.email 
-            span=user.username
-    each video in user.videos 
-        +video(video)
-    else 
-        li Sorry, nothing video.
-    h1
-        a(href="/users/edit") Edit profile 
+block content
+    div.profile-Body
+        div.profile__user
+            div.profile__user-info
+                div.profile__user-img
+                    img(src=loggedInUser.avatarUrl)
+                    
+                div.profile__user-text
+                    div.profile__user-text_name
+                        h4 Name
+                        span=user.name
+                    div.profile__user-text_sub
+                        div
+                            h4 Email
+                            span=user.email
+                        div
+                            h4 Username
+                            span=user.username
+            div.profile__user-btn
+                h1 
+                    a(href="/users/edit") Edit profile 
+
+        each video in user.videos 
+            +video(video)
+        else 
+            li Sorry, nothing video.

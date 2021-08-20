@@ -21,7 +21,8 @@
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .edit-profile-form {
-  width: 350px;
+  width: max-content;
+  padding: 0 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,17 +36,24 @@
     margin-bottom: 14px;
     padding: 10px;
     border-radius: 4px;
-    color: white;
     border: none;
   }
-  input:last-child {
-    width: 150px;
+  input[type="submit"] {
+    cursor: pointer;
+    padding: 10px 0;
     background-color: $blackgray;
     font-size: 18px;
     color: white;
     border: none;
   }
-  input:last-child:hover {
+  input[type="submit"]:hover {
     background-color: $hoverGray;
+  }
+  hr {
+    width: 90%;
+    margin: 10px 0 14px 0;
+  }
+  a {
+    font-weight: 500;
   }
 }

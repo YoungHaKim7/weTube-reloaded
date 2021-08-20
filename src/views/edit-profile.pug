@@ -5,9 +5,9 @@ block content
         if errorMessage
             span=errorMessage
         div.edit-profile-part
-            img(src="/"+loggedInUser.avatarUrl)
+            img(src=loggedInUser.avatarUrl)
             form(method="POST" enctype="multipart/form-data").edit-profile-form
-                label Avatar 
+                label 프로필 
                 input(type="file" id="avatar" name="avatar" accept="image/*")
                 input(placeholder="Name" name="name"  required type="text" value=loggedInUser.name)
                 input(placeholder="Email" name="email"  required type="email" value=loggedInUser.email)
