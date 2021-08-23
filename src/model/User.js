@@ -3,7 +3,7 @@ import mongoose, { Mongoose } from "mongoose";
 
 const userSchema = new mongoose.Schema({
     email: {type:String, required: true, unique:true},
-    avatarUrl: String,
+    avatarUrl: {type: String, default: "https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_960_720.png"},
     username: {type:String, required: true, unique:true},
     socialOnly: { type: Boolean, default: false },
     password: {type:String},

@@ -18,10 +18,11 @@ header
                     a(href="/videos/upload") Upload Video
                 li 
                     a(href=`/users/${loggedInUser._id}`)
-                        if !loggedInUser.avatarUrl
-                            i.fas.fa-user.fa-lg
-                        else 
-                            img.avatar(src=loggedInUser.avatarUrl)
+                        //- if !loggedInUser.avatarUrl
+                        //-     i.fas.fa-user.fa-lg
+
+                        //- else 
+                        img.avatar(src=loggedInUser.avatarUrl)
                 li
                     a(href="/users/logout") 
                         i.fas.fa-sign-out-alt.fa-lg
