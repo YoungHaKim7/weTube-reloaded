@@ -2,6 +2,19 @@ extends base.pug
 include mixins/video
 
 block content
+    div.home__sub
+        ul 
+            li.onhover 
+                span 전체
+            li 
+                span 영화
+            li 
+                span 음악
+            li 
+                span 실시간
+            li
+                span 요리
+            
     each video in videos 
         +video(video)
     else 

@@ -9,19 +9,23 @@ export const postJoin = async (req, res) => {
     const pageTitle = "join";
     const { email, username, password, password2, name, location } = req.body; 
     if (password !== password2) {
-        return res.status(400).render("join", {pageTitle , errorMessage: "password가 일치하지 않습니다"});
+        req.flash("error", "password가 일치하지 않습니다");
+        return res.status(400).render("join", {pageTitle});
     }
     const exists = await User.exists({ $or: [{username}, {email}]});
     if(exists) {
-        return res.status(400).render("join", {pageTitle , errorMessage: "This username/email is already taken."})
+        req.flash("error", "This username/email is already taken")
+        return res.status(400).render("join", {pageTitle})
     }
     try {
         await User.create({
             email, username, password, name, location
-        })  
+        });
+        req.flash("info", "회원가입 완료");
         return res.redirect("/login")  
     } catch(error) {
-        return res.status(400).render("join", {pageTitle , errorMessage: error._message});
+        req.flash("error", error._message);
+        return res.status(400).render("join", {pageTitle});
     }
     
 } 
@@ -32,11 +36,13 @@ export const postLogin = async (req, res) => {
     const pageTitle = "login";
     const user = await User.findOne({username, socialOnly: false });
     if (!user) {
-        return res.status(400).render("login", {pageTitle, errorMessage:"해당 username이 없습니다"});
+        req.flash("error", "해당 username이 없습니다");
+        return res.status(400).render("login", {pageTitle});
     }
     const ok = await bcrypt.compare(password, user.password);
     if (!ok) {
-        return res.status(400).render("login", {pageTitle, errorMessage:"비밀먼호가 틀렸습니다"});
+        req.flash("error", "비밀먼호가 일치하지 않습니다")
+        return res.status(400).render("login", {pageTitle});
     }
     req.session.loggedIn = true;
     req.session.user = user; 
@@ -144,9 +150,9 @@ export const postEdit = async (req, res) => {
         const foundUser = await User.findOne({ $or: searchParam});
         if (foundUser && foundUser._id.toString() !== _id) {
             // id 비교 : email과 username이 내 것인지 타인의 것인지 확인
+            req.flash("error", "This username/email is already taken")
             return res.status(400).render("edit-profile", {
-                pageTitle,
-                errorMessage: "This username/email is already taken"
+                pageTitle
             });
         }
     }
@@ -160,6 +166,7 @@ export const postEdit = async (req, res) => {
         new: true
     });
     req.session.user = updatedUser;
+    req.flash("info", "프로필이 수정되었습니다");
     return res.redirect(`/users/${_id}`);
 }
 
@@ -180,20 +187,21 @@ export const postChangePassword = async (req, res) => {
     const user = await User.findById(_id);
     const ok = await bcrypt.compare(OldPassword, user.password);
     if (!ok) {
+        req.flash("error","현 비밀번호가 다릅니다");
         return res.status(400).render("users/change-password", {
-            pageTitle: "Change Password",
-            errorMessage: "현 비밀번호가 다릅니다"
+            pageTitle: "Change Password"
         });
     }
     if (NewPassword !== NewPasswordConfirm) {
+        req.flash("error", "새 비밀번호가 다릅니다");
         return res.status(400).render("users/change-password", {
-            pageTitle: "Change Password",
-            errorMessage: "새 비밀번호가 다릅니다"
+            pageTitle: "Change Password"
         })
     }
     user.password = NewPassword;
     await user.save();
     req.session.user.password = user.password;
+    req.flash("info", "비밀번호가 변경되었습니다");
     return res.redirect("/users/logout");
 }
 

@@ -50,6 +50,7 @@
     width: 450px;
     height: 450px;
   }
+  #authBtn,
   #startBtn {
     background-color: $white;
     cursor: pointer;
@@ -74,8 +75,9 @@
       color: black;
     }
   }
+  #authBtn:hover,
   #startBtn:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.2);
     color: white;
   }
 }

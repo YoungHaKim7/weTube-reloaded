@@ -41,6 +41,7 @@ export const postEdit = async (req, res) => {
     await Video.findByIdAndUpdate(id, {
         title, description, hashtags: Video.formatHashtags(hashtags)
     });
+    req.info("info", "비디오가 수정되었습니다");
     return res.redirect(`/videos/${id}`); 
 }
 export const watch = async (req, res) => {
@@ -71,11 +72,13 @@ export const postUpload = async (req, res) => {
         const user = await User.findById(_id);
         user.videos.push(newVideo._id);
         user.save();
+        req.flash("info", "업로드 완료");
         return res.redirect("/")    
     }
     // await ~.create : 데이터를 만들고 저장까지 함
     catch (error) {
-        return res.render("upload", {pageTitle : "Upload Video", errorMessage: error})
+        req.flash("error", error)
+        return res.render("upload", {pageTitle : "Upload Video"})
     }
     
 }
@@ -96,6 +99,7 @@ export const deleteVideo = async (req, res) => {
     user.save();
     await Video.findByIdAndDelete(id);
     // findByIdAndRemove도 있지만 되도록 Delete 사용
+    req.flash("info", "비디오가 삭제되었습니다");
     return res.redirect("/");
 }
 

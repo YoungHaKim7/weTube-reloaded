@@ -38,8 +38,8 @@ app.use(session({
 
 app.use(flash());
 app.use(localMiddleware);
-app.use("/uploads", express.static("uploads")); // 폴더를 브라우저에 노출
 app.use("/assets", express.static("assets")); // Express가 폴더를 브라우저에 노출
+app.use("/uploads", express.static("uploads")); // 폴더를 브라우저에 노출
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);

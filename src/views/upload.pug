@@ -5,10 +5,8 @@ block content
         div.video__preview
             video#preview 
             button#startBtn
-                span Recording
-                i.fas.fa-record-vinyl.fa-lg
-        if errorMessage
-            span=errorMessage
+                span Start
+                i.fas.fa-video
         div.upload-part
             form(method="POST" enctype="multipart/form-data").upload-form
                 label(for="video")

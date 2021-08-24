@@ -6,8 +6,6 @@ block content
             i.fab.fa-youtube.fa-7x 
             h1 당신의 스토리를 함께 나눠보세요.
         div.login-info
-            if errorMessage 
-                span=errorMessage
             form(method="POST").login-form
                 input(placeholder="Username" name="username"  required type="text")
                 input(placeholder="Password" name="password" required type="password")

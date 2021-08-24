@@ -17,6 +17,7 @@
 @import "./screens/watch.scss";
 @import "./screens/profile.scss";
 @import "./screens/change-password.scss";
+@import "./screens/home.scss";
 
 // Default
 a {
@@ -43,22 +44,26 @@ body {
 
 .message {
   position: absolute;
-  top: 10px;
+  top: 0px;
   left: 0;
   right: 0;
   margin: 0 auto;
-  max-width: 200px;
-  padding: 10px 20px;
-  border-radius: 10000px;
+  width: 100%;
+  padding: 15px 0;
   text-align: center;
   animation: goAway 0.5s ease-in-out forwards;
   animation-delay: 3s;
+  z-index: 1;
   &.error {
     background-color: tomato;
-    //color: white;
+    opacity: 0.9;
+    color: white;
+    font-size: 16px;
   }
   &.info {
-    background-color: green;
-    //color: white;
+    background-color: yellowgreen;
+    opacity: 0.9;
+    color: white;
+    font-size: 16px;
   }
 }

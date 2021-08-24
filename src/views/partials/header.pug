@@ -3,7 +3,7 @@ header
         i.fab.fa-youtube.fa-3x  
         h1 YouTube
 
-    form(method="GET").formSearch
+    form(method="GET" action="/search").formSearch
         input(type="text" placeholder="Search By Title" name="keyword")
         input(type="submit" value="")
         i.fas.fa-search.fa-lg
@@ -11,8 +11,6 @@ header
     nav.header-nav 
         
         ul 
-            li 
-                a(href="/search") Search
             if loggedIn 
                 li 
                     a(href="/videos/upload") Upload Video

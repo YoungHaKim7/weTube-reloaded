@@ -3,10 +3,5 @@ include mixins/video
 
 
 block content 
-    form(method="GET").formSearch
-        input(type="text" placeholder="Search By Title" name="keyword")
-        input(type="submit" value="")
-        i.fas.fa-search.fa-lg
-
     each video in videos 
         +video(video)
