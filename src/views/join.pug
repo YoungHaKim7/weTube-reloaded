@@ -1,8 +1,13 @@
 extends base
 
 block content
-    main.joinBody
-        div.joinPart
+    main.join-main
+        div.join-logo
+            div.join-logo__title
+                i.fab.fa-youtube.fa-7x
+                span Join
+            h1 WeTube에 오신 것을 환영합니다.
+        div.join-info
             form(method="POST").joinForm
                 input(placeholder="Name" name="name"  required type="text")
                 input(placeholder="Email" name="email"  required type="email")

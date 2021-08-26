@@ -1,9 +1,11 @@
 extends base
 
 block content
-    main.loginMain
+    main.login-main
         div.login-logo
-            i.fab.fa-youtube.fa-7x 
+            div.login-logo__title
+                i.fab.fa-youtube.fa-7x 
+                span Login
             h1 당신의 스토리를 함께 나눠보세요.
         div.login-info
             form(method="POST").login-form
@@ -11,7 +13,7 @@ block content
                 input(placeholder="Password" name="password" required type="password")
                 input(type="submit" value="Login")
             br
-            div.login__social 
+            div.login__social
                 h1 Continue with 
                 div.login__social-bar
                 div

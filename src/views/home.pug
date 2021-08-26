@@ -2,20 +2,37 @@ extends base.pug
 include mixins/video
 
 block content
-    div.home__sub
-        ul 
-            li.onhover 
-                span 전체
-            li 
-                span 영화
-            li 
-                span 음악
-            li 
-                span 실시간
-            li
-                span 요리
-            
-    each video in videos 
-        +video(video)
-    else 
-        li Sorry, nothing video.
+    div.home
+        nav.home__nav
+            ul 
+                li
+                    i.fas.fa-home.fa-lg
+                    p 홈
+                li
+                    i.fas.fa-search.fa-lg
+                    p 탐색
+                li
+                    i.fab.fa-youtube-square.fa-lg
+                    p Originals
+                li
+                    i.far.fa-bookmark.fa-lg
+                    p 구독
+                
+        div.home__main
+            div.home__sub
+                ul 
+                    li.onhover 
+                        span 전체
+                    li 
+                        span 영화
+                    li 
+                        span 음악
+                    li 
+                        span 실시간
+                    li
+                        span 요리
+            div.home__video
+                each video in videos 
+                    +video(video)
+                else 
+                    li Sorry, nothing video.

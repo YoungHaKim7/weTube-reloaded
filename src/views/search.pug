@@ -2,6 +2,7 @@ extends base.pug
 include mixins/video
 
 
-block content 
-    each video in videos 
-        +video(video)
+block content
+    div.search-video
+        each video in videos 
+            +video(video)

@@ -1,10 +1,9 @@
 mixin video(video)
     a(href=`/videos/${video.id}`).video-mixin
         div.video-mixin__thumb
-            img(src=video.thumbUrl style=`background-size:cover;background-position:center;width:300px;height:200px`)
-            //(style=`background-image:url(/${video.thumbUrl});`)
+            img(src=video.thumbUrl style=`background-size:cover;background-position:center;width:275px;height:183px`)
         div.video-mixin__data
             span.video-mixin__title=video.title
             div.video-mixin__meta
                 span #{video.owner.name} • 
-                span #{video.meta.views} 회
+                span 조회수 #{video.meta.views}회

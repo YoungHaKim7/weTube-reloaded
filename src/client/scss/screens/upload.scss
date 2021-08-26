@@ -27,8 +27,11 @@
     margin-bottom: 14px;
     padding: 10px;
     border-radius: 4px;
-    color: white;
     border: none;
+  }
+  label {
+    margin-bottom: 10px;
+    font-weight: 500;
   }
   input:last-child {
     width: 150px;

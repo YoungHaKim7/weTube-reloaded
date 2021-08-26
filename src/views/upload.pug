@@ -9,9 +9,9 @@ block content
                 i.fas.fa-video
         div.upload-part
             form(method="POST" enctype="multipart/form-data").upload-form
-                label(for="video") Video
+                label(for="video") Video File
                 input(type="file", accept="video/*", required, id="video", name="video")
-                label(for="thumb") Thumbnail
+                label(for="thumb") Thumbnail File
                 input(type="file", accept="image/*", required, id="thumb", name="thumb")
                 input(name="title" placeholder="Title", required, type = "text", maxlength=20)
                 input(name="description" placeholder="description", required, type = "text", maxlength = 140)

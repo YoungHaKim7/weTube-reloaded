@@ -2,8 +2,6 @@ extends base
 
 block content
     div.edit-profile-body
-        if errorMessage
-            span=errorMessage
         div.edit-profile-part
             img(src=loggedInUser.avatarUrl crossorigin)
             form(method="POST" enctype="multipart/form-data").edit-profile-form

@@ -1,36 +1,7 @@
-.formSearch {
+.search-video {
+  padding: 20px 40px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  position: relative;
-  i {
-    background: none;
-    position: absolute;
-    color: $white;
-    right: 17px;
-  }
-}
-.formSearch input:first-child {
-  padding: 12px 15px;
-  font-size: 16px;
-  width: 400px;
-  background-color: $white;
-  border: 3px solid $white;
-  caret-color: $white;
-  border-radius: 500px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.formSearch input:nth-child(2) {
-  font-size: 23px;
-  width: 50px;
-  height: 50px;
-  padding: 0;
-  background-color: #000000;
-  border: 3px solid $white;
-  color: $white;
-  border-radius: 50%;
-  position: absolute;
-  right: 2px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
