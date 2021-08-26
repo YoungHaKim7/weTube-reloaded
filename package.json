@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/lee-yun-pyo/weTube-reloaded#readme",
   "dependencies": {
+    "@ffmpeg/core": "^0.10.0",
+    "@ffmpeg/ffmpeg": "^0.10.1",
     "assets": "^3.0.1",
     "babel-loader": "^8.2.2",
     "bcrypt": "^5.0.1",

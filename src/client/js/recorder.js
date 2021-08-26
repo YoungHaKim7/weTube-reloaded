@@ -1,19 +1,66 @@
+import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+import fetch from 'node-fetch';
+
 const startBtn = document.getElementById("startBtn");
 const span = startBtn.querySelector("span");
 const icon = startBtn.querySelector("i");
 const video = document.getElementById("preview");
+const authBtn = document.getElementById("authBtn");
 
 let recorder;
 let stream;
 let videoFile;
 
-const handleDownload = () => {
+const files = {
+    input: "recording.webm",
+    output: "output.mp4",
+    thumb: "thumnail.jpg",
+}
+
+const downloadFile = (fileUrl, fileName) => {
     const a = document.createElement("a");
-    a.href = videoFile;
-    a.download = "MyRecording.webm";
+    a.href = fileUrl;
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
+}
 
+const handleDownload = async () => {
+    startBtn.removeEventListener("click", handleDownload);
+    startBtn.innerText = "Transcoding...";
+    startBtn.disabled = true;
+
+    const ffmpeg = createFFmpeg({ log: true, corePath: "/assets/ffmpeg-core.js"});
+    await ffmpeg.load();
+
+    ffmpeg.FS("writeFile", files.input, await fetchFile(videoFile));
+    await ffmpeg.run("-i", files.input, "-r", "60", files.output);
+    await ffmpeg.run("-i", files.input, "-ss", "00:00:01", "-frames:v", "1", files.thumb);
+
+    const mp4File = ffmpeg.FS("readFile", files.output);
+    const thumbFile = ffmpeg.FS("readFile", files.thumb);
+
+    const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
+    const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
+
+    const mp4Url = URL.createObjectURL(mp4Blob);
+    const thumbUrl = URL.createObjectURL(thumbBlob);
+
+
+    downloadFile(mp4Url, "MyRecording.mp4");
+    downloadFile(thumbUrl, "MyThumbnail.jpg");
+
+    ffmpeg.FS("unlink", files.input);
+    ffmpeg.FS("unlink", files.output);
+    ffmpeg.FS("unlink", files.thumb);
+
+    URL.revokeObjectURL(mp4Url);
+    URL.revokeObjectURL(thumbUrl);
+    URL.revokeObjectURL(videoFile);
+
+    startBtn.disabled = false;    
+    startBtn.innerText = "Recording Again";
+    startBtn.addEventListener("click", handleStart)
 }
 
 const handleStop = () => {
@@ -37,7 +84,7 @@ const handleStart = () => {
         video.loop = true;
         video.play();
     }
-    recorder.start();
+    recorder.start();        
 }
 
 const init = async () => {
@@ -47,10 +94,12 @@ const init = async () => {
     });
     video.srcObject = stream;
     video.play();
+    span.innerText = "Recording";
+    icon.className = "fas fa-record-vinyl fa-lg";
+    startBtn.removeEventListener("click", init);
+    startBtn.addEventListener("click", handleStart);
 }
 
-init();
-
-startBtn.addEventListener("click", handleStart);
+startBtn.addEventListener("click", init);
 
 
