@@ -1,11 +1,17 @@
 extends base.pug
 
 block content
-    div.edit-body
-        h2 Change Title of video
-        div.edit-part
-            form(method="POST").edit-form
+    div.edit-main
+        div.edit-info
+            form(method="POST").edit-info__form
+                div.edit-info__form-title
+                    i.fab.fa-youtube.fa-2x
+                    span 비디오 편집
+                hr
+                label Title
                 input(name = "title" placeholder="Video Title" value=video.title , required)
+                label Description
                 input(name="description" placeholder="description", required, type = "text", maxlength = 140, value=video.description)
+                label Hashtags
                 input(name="hashtags" placeholder="hashtags, Separate by comma", required, type = "text", value=video.hashtags.join())
-                input(value="Save" type="submit")
+                input(value="저장" type="submit")

@@ -13,6 +13,7 @@ const timeline = document.getElementById("timeline");
 const fullScreenBtn = document.getElementById("fullScreen");
 const fullScreenBtnIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
+const videoplayer = document.getElementById("videoplayer");
 const videoController = document.getElementById("videoController");
 
 let timeoutControll = null;
@@ -28,7 +29,7 @@ const videoPlay = () => {
     }
 }
 const videoPlayBtn = () => {
-    playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
+    playBtnIcon.classList = video.paused ? "fas fa-play fa-lg" : "fas fa-pause fa-lg";
 }
 
 const formatTime = (seconds) => {
@@ -46,7 +47,7 @@ const handleMute = (e) => {
     } else {
         video.muted = true;
     }
-    muteBtnIcon.classList = video.muted ? "fas fa-volume-mute" : "fas fa-volume-up";
+    muteBtnIcon.classList = video.muted ? "fas fa-volume-mute fa-lg" : "fas fa-volume-up fa-lg";
     volumeRange.value = video.muted ? 0 : volumnValue;
 }
 const handleVolumeChange = (event) => {
@@ -56,10 +57,10 @@ const handleVolumeChange = (event) => {
     if(video.muted) {
         video.muted = false;
         video.volume = value;
-        muteBtnIcon.classList = "fas fa-volume-mute";
+        muteBtnIcon.classList = "fas fa-volume-mute fa-lg";
     }
     // #11.3 localStorage추가 
-    muteBtnIcon.classList = parseFloat(value) === 0 ? "fas fa-volume-mute" : "fas fa-volume-up";
+    muteBtnIcon.classList = parseFloat(value) === 0 ? "fas fa-volume-mute fa-lg" : "fas fa-volume-up fa-lg";
     volumnValue = value; // 전역변수라서 모든 코드에서 기억
     video.volume = value;
 }
@@ -80,11 +81,11 @@ const handleTimeLineChange = (event) => {
 const handleFullScreen = () => {
     const fullScreen = document.fullscreenElement;
     if (!fullScreen) {
-        videoContainer.requestFullscreen();
+        video.requestFullscreen();
     } else {
         document.exitFullscreen();
     }
-    fullScreenBtnIcon.classList = fullScreen ? "fas fa-expand" : "fas fa-compress";
+    fullScreenBtnIcon.classList = fullScreen ? "fas fa-expand fa-lg" : "fas fa-compress fa-lg";
 };
 
 const hideControl = () =>  videoController.classList.remove("showing");
@@ -112,9 +113,6 @@ const logKey = (event) => {
     if (event.code === "Space") {
         videoPlay();
         videoPlayBtn();
-    }
-    if (event.code === "KeyF") {
-    video.requestFullscreen();
     }
     if (event.code === "Escape") {
         if (document.fullscreenElement) {

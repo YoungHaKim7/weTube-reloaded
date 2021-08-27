@@ -1,14 +1,10 @@
-.edit-body {
+.edit-main {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  h2 {
-    margin-bottom: 25px;
-    font-size: 30px;
-  }
+  margin-top: 90px;
 }
-.edit-part {
+.edit-info {
   width: max-content;
   display: flex;
   flex-direction: column;
@@ -20,14 +16,35 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-.edit-form {
-  width: 350px;
+.edit-info__form {
+  width: max-content;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  hr {
+    width: 100%;
+    margin: 15px 0;
+  }
+  .edit-info__form-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i {
+      color: $red;
+      margin-right: 5px;
+    }
+    span {
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+
   label {
-    margin: 10px 0;
+    margin-bottom: 15px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: bold;
   }
   input {
     background-color: $inputColor;
@@ -37,14 +54,17 @@
     border-radius: 4px;
     border: none;
   }
-  input:last-child {
-    width: 150px;
+  input[type="submit"] {
+    width: max-content;
+    padding: 10px 25px;
     background-color: $blackgray;
     font-size: 18px;
     color: white;
     border: none;
+    margin-top: 20px;
+    align-items: flex-end;
   }
-  input:last-child:hover {
+  input[type="submit"]:hover {
     background-color: $hoverGray;
   }
 }

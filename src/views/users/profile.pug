@@ -6,7 +6,7 @@ block content
         div.profile__user
             div.profile__user-info
                 div.profile__user-img
-                    img(src=loggedInUser.avatarUrl)
+                    img(src=loggedInUser.avatarUrl crossorigin)
                     
                 div.profile__user-text
                     div.profile__user-text_name
@@ -23,6 +23,7 @@ block content
                 h1 
                     a(href="/users/edit") Edit profile 
 
+    div.profile-video
         each video in user.videos 
             +video(video)
         else 

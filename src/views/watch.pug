@@ -1,48 +1,64 @@
 extends base.pug
 
-block content 
-    div#videoContainer(data-id = video._id)
-        video(src="/"+video.fileUrl, width="700", height="400")
-        div#videoController.videoControls
-            div.videoControls__play
-                button#play.videoControls__playBtn
-                    i.fas.fa-play
-                div.videoControls__time
-                    span#currentTime 00:00
-                    span  / 
-                    span#totalTime 00:00
-            input(type="range", value=0 min="0", step="1")#timeline.videoControls__timeline
-            div.videoControls__volume
-                input(type="range", value=0.5 min="0", max="1", step="0.1")#volume
-                button#mute
-                    i.fas.fa-volume-up           
-            div 
-                button#fullScreen
-                    i.fas.fa-expand
+block content
+    div.watch-main
+        div#videoContainer(data-id = video._id)
+            div#videoplayer
+                video(src="/"+video.fileUrl, width="700", height="400")
+                div#videoController.videoControls
+                    div.videoControls__play
+                        button#play.videoControls__playBtn
+                            i.fas.fa-play.fa-lg
+                        div.videoControls__time
+                            span#currentTime 00:00
+                            span  / 
+                            span#totalTime 00:00
+                    input(type="range", value=0 min="0", step="1")#timeline.videoControls__timeline
+                    div.videoControls__volume
+                        input(type="range", value=0.5 min="0", max="1", step="0.1")#volume
+                        button#mute
+                            i.fas.fa-volume-up.fa-lg           
+                    div 
+                        button#fullScreen
+                            i.fas.fa-expand.fa-lg
+            
+            div#videoInfo
+                div.videoInfo-info
+                    p#hashtags=video.hashtags
+                    h1#title=video.title
+                    small#createdAt=video.createdAt
+                    hr
+                    div.videoInfo-info-sub
+                        div.videoInfo-info__upload
+                            small Uploaded by 
+                                a(href=`/users/${video.owner._id}`) #{video.owner.name}
+                            p#description=video.description
+                        div.videoInfo-logged
+                            if String(video.owner._id) === String(loggedInUser._id)
+                                a(href=`${video.id}/edit`) Edit
+                                br
+                                a(href=`${video.id}/delete`) Delete
         
-    //
-        p=video.description
-        small=video.createdAt
-        div 
-            small Uploaded by 
-                a(href=`/users/${video.owner._id}`) #{video.owner.name}
-        if String(video.owner._id) === String(loggedInUser._id)
-            a(href=`${video.id}/edit`) Edit video &rarr;
-            br
-            a(href=`${video.id}/delete`) Delete video &rarr;
-    if loggedIn
-        div.video__add-comments
-            form.video___comment-form#commentForm
-                textarea(cols="30", rows="10", placeholder="Write a comment")
-                button Add Comment
-    div.video__comments
-        ul
-            each comment in video.comment.reverse()
-                li.video__comment(data-id = comment._id)
-                    i.fas.fa-comment
-                    span  #{comment.text}
-                    if loggedIn && (loggedInUser._id === String(comment.owner)) 
-                        span.deleteBtn ❌
+        div#commentContainer
+            h2 댓글 #{video.comment.length}개
+            if loggedIn
+                div.video__add-comments
+                    form.video___comment-form#commentForm
+                        textarea(cols="30", rows="10", placeholder="Write a comment...")
+                        div
+                            button#cancleBtn 취소
+                            button#commentBtn 댓글
+                            
+            div.video__comments
+                ul
+                    each comment in video.comment.reverse()
+                        li.video__comment(data-id = comment._id)
+                            div
+                                i.fas.fa-comment
+                                span  #{comment.text}
+                            if loggedIn && (loggedInUser._id === String(comment.owner)) 
+                                span.deleteBtn
+                                    i.far.fa-trash-alt
 block scripts 
     script(src="/assets/js/videoPlayer.js")  
     if loggedIn

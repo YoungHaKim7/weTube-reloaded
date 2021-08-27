@@ -41,7 +41,7 @@ export const postEdit = async (req, res) => {
     await Video.findByIdAndUpdate(id, {
         title, description, hashtags: Video.formatHashtags(hashtags)
     });
-    req.info("info", "비디오가 수정되었습니다");
+    req.flash("info", "비디오가 수정되었습니다");
     return res.redirect(`/videos/${id}`); 
 }
 export const watch = async (req, res) => {
@@ -50,7 +50,6 @@ export const watch = async (req, res) => {
     if(!video) {
         return res.status(404).render("404", {pageTitle: "Video is not found"});
     };
-    
     return res.render("watch", {pageTitle: video.title, video});
 }
 export const getUpload = (req, res) => {
