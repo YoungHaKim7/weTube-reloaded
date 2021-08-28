@@ -3,7 +3,10 @@ extends base
 block content
     div.edit-profile-body
         div.edit-profile-part
-            img(src=loggedInUser.avatarUrl crossorigin)
+            if loggedInUser.socialOnly
+                img.avatar(src=loggedInUser.avatarUrl)
+            else 
+                img.avatar(src="/"+loggedInUser.avatarUrl)
             form(method="POST" enctype="multipart/form-data").edit-profile-form
                 label 프로필 
                 input(type="file" id="avatar" name="avatar" accept="image/*")
