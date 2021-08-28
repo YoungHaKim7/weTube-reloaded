@@ -252,7 +252,7 @@ export const finishKakaoLogin = async (req, res) => {
     console.log(tokenRequest);
     if("access_token" in tokenRequest) {
         const { access_token } = tokenRequest;
-        const api_url = "https://wetube-lee.herokuapp.com/v2/user/me";
+        const api_url = "https://kapi.kakao.com/v2/user/me";
         const kakao_userData = await (
             await fetch(api_url, {
                 method: "POST",
