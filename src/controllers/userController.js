@@ -222,7 +222,7 @@ export const startKakaoLogin = async (req, res) => {
     const base_url =  "https://kauth.kakao.com/oauth/authorize";
     const config = {
         client_id:process.env.KA_CLIENTID,
-        redirect_uri: "http://localhost:4000/users/kakao/finish",
+        redirect_uri: "https://wetube-lee.herokuapp.com/users/kakao/finish",
         response_type: "code",
     }
     const params = new URLSearchParams(config).toString();
