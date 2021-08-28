@@ -58,13 +58,11 @@ export const startGithubLogin = (req, res) => {
     }
     const params = new URLSearchParams(config).toString();
     const finalUrl = `${baseUrl}?${params}`
-    console.log("github start");
 
     return res.redirect(finalUrl);
 }
 
 export const finishGithubLogin = async (req, res) => {
-    console.log("github finish");
     const baseUrl = "https://github.com/login/oauth/access_token";
     const config = {
         client_id: process.env.GH_CLIENTID,
@@ -207,7 +205,13 @@ export const postChangePassword = async (req, res) => {
 
 export const see = async (req, res) => {
     const { id } = req.params;
-    const user = await User.findById(id).populate("videos").populate("owner");
+    const user = await User.findById(id).populate({
+        path: "videos",
+        populate: {
+          path: "owner",
+          model: "User",
+        },
+      });
     if (!user) {
         return res.status(404).render("404", {pageTitle: "User not found "})
     }  

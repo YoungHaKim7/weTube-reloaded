@@ -1,5 +1,5 @@
 import "../scss/styles.scss";
-import regeneratorRuntime from "regenerator-runtime";
+import "regenerator-runtime";
 
 
 // 프론트엔드 코딩할 파일 => webpack이 처리하기 전 

@@ -9,14 +9,15 @@ import videoRouter from "./Routers/videoRouter"
 import apiRouter from "./Routers/apiRouter";
 import { localMiddleware } from "./middlewares";
 import { Mongoose } from "mongoose";
+import cors from "cors";
 
 
 const app = express();
 const logger = morgan("dev");
 
-
 app.set("view engine", "pug");
 app.set("views", process.cwd() + '/src/views');
+
 app.use(logger);
 app.use(express.urlencoded({extend: true}));
 app.use(express.json());
@@ -45,6 +46,11 @@ app.use((req, res, next) => {
 });
 app.use("/assets", express.static("assets"), express.static("node_modules/@ffmpeg/core/dist")); // Express가 폴더를 브라우저에 노출
 app.use("/uploads", express.static("uploads")); // 폴더를 브라우저에 노출
+app.use(cors({
+    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
+    origin: "*",
+    credentials: true
+}));
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
