@@ -237,7 +237,7 @@ export const finishKakaoLogin = async (req, res) => {
     const config = {
         grant_type: "authorization_code",
         client_id: process.env.KA_CLIENTID,
-        redirect_uri: "http://localhost:4000/users/kakao/finish",
+        redirect_uri: "https://wetube-lee.herokuapp.com/users/kakao/finish",
         code: req.query.code,	
     };
     const params = new URLSearchParams(config).toString();
@@ -252,7 +252,7 @@ export const finishKakaoLogin = async (req, res) => {
     console.log(tokenRequest);
     if("access_token" in tokenRequest) {
         const { access_token } = tokenRequest;
-        const api_url = "https://kapi.kakao.com/v2/user/me";
+        const api_url = "https://wetube-lee.herokuapp.com/v2/user/me";
         const kakao_userData = await (
             await fetch(api_url, {
                 method: "POST",
