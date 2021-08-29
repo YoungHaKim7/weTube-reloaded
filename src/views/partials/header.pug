@@ -22,7 +22,7 @@ header
                         if loggedInUser.socialOnly
                             img.avatar(src=loggedInUser.avatarUrl crossorigin)
                         else 
-                            img.avatar(src="/"+loggedInUser.avatarUrl)
+                            img.avatar(src=loggedInUser.avatarUrl)
 
                 li
                     a(href="/users/logout") 

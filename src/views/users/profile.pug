@@ -9,7 +9,7 @@ block content
                     if loggedInUser.socialOnly
                         img.avatar(src=user.avatarUrl crossorigin)
                     else 
-                        img.avatar(src="/"+user.avatarUrl)
+                        img.avatar(src=user.avatarUrl)
                     
                 div.profile__user-text
                     div.profile__user-text_name
