@@ -4,7 +4,7 @@ block content
     div.watch-main
         div#videoContainer(data-id = video._id)
             div#videoplayer
-                video(src=video.fileUrl, width="700", height="400")
+                video(src=video.fileUrl, width="700", height="400" crossorigin)
                 div#videoController.videoControls
                     div.videoControls__play
                         button#play.videoControls__playBtn
